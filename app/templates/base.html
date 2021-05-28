@@ -3,8 +3,18 @@
     <title>Article Queue</title>
   </head>
   <body>
-    <div>Article Queue: <a href="/">Home</a></div>
+    <div>
+      Article Queue:
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('login') }}">Login</a>
+    </div>
     <hr />
-    {% block content %}{% endblock %}
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
   </body>
 </html>
