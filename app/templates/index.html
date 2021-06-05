@@ -1,26 +1,41 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% import 'bootstrap/wtf.html' as wtf %} {% block
+page_content %}
 <div>
-  <h2>Enter Article</h2>
-  <form>
-    <input type="text" placeholder="Title" />
-    <input type="text" placeholder="Topic" />
-    <input type="text" placeholder="Link" />
-    <button type="submit">Submit</button>
-  </form>
+  <div
+    style="
+      width: 500px;
+      background-color: #f8f8f8;
+      border: #e7e7e7 2px solid;
+      margin: auto;
+    "
+  >
+    <div style="margin: 20px">
+      <h3 style="font-weight:600;">Enter Article</h5>
+      {{ wtf.quick_form(form) }}
+    </div>
+  </div>
+  <div style="margin-top: 20px;">
+    <h2>Articles</h2>
+    <table class="table">
+      <thead style="font-weight:bold; background-color: #f8f8f8;">
+        <tr>
+          <td>Title</td>
+          <td>Topic</td>
+          <td>Date Added</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for article in articles %}
+        <tr>
+          <td>
+            <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+          </td>
+          <td>{{ article.topic }}</td>
+          <td>{{ moment(article.timestamp).fromNow() }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endblock %}
 </div>
-<h1>Articles</h1>
-<table>
-  <tr>
-    <td>Title</td>
-    <td>Topic</td>
-    <td>Date Added</td>
-  </tr>
-  {% for article in articles %}
-  <tr>
-    <td><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></td>
-    <td>{{ article.topic }}</td>
-    <td>{{ article.time }}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% endblock %}
