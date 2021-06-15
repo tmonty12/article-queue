@@ -15,7 +15,7 @@ page_content %}
     </div>
   </div>
   <div style="margin-top: 20px;">
-    <h2>Articles</h2>
+    <h2 id="table-header">Articles</h2>
     <table class="table">
       <thead style="font-weight:bold; background-color: #f8f8f8;">
         <tr>
@@ -24,15 +24,15 @@ page_content %}
           <td>Date Added</td>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="article-list-body">
         {% for article in articles %}
-        <tr>
-          <td>
-            <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
-          </td>
-          <td>{{ article.topic }}</td>
-          <td>{{ moment(article.timestamp).fromNow() }}</td>
-        </tr>
+          <tr class="article-row" id="{{ url_for( 'article', id=article.id ) }}">
+            <td>
+              <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+            </td>
+            <td>{{ article.topic }}</td>
+            <td>{{ moment(article.timestamp).fromNow() }}</td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>

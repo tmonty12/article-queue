@@ -17,7 +17,7 @@ class ArticleModelCase(unittest.TestCase):
         self.assertFalse(u.check_password('Go*Sox'))
         self.assertTrue(u.check_password('Go*Yanks'))
     
-    def test_adding_articles(self):
+    def test_creating_articles(self):
         self.assertEqual(Article.query.first(), None)
 
         # Add two articles

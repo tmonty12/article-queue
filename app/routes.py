@@ -16,7 +16,7 @@ def index():
       db.session.commit()
       flash('You added a new article')
       return redirect(url_for('index'))
-    articles = current_user.articles
+    articles = current_user.articles.order_by(Article.timestamp.desc())
     return  render_template('index.html', form=form, articles=articles)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -54,3 +54,8 @@ def register():
     flash('Congratulations, you are now a registered user!')
     return redirect(url_for('login'))
   return render_template('register.html', form=form)
+
+@app.route('/article/<id>')
+def article(id):
+  article = Article.query.filter_by(id=id).first()
+  return article.title
