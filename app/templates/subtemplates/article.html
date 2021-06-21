@@ -1,0 +1,9 @@
+{% block body %}
+<tr class="article-row" id="{{ url_for( 'article', id=article.id ) }}">
+  <td>
+    <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+  </td>
+  <td>{{ article.topic }}</td>
+  <td>{{ moment(article.timestamp).fromNow() }}</td>
+</tr>
+{% endblock %}

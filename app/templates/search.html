@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% import 'bootstrap/wtf.html' as wtf %} {% block
+page_content %}
+<div>
+  <div class="card">{{ wtf.quick_form(form, method="GET") }}</div>
+  {% if articles %}
+  <div style="margin-top: 20px">
+    <h2>Articles</h2>
+    <table class="table">
+      <thead class="table-header">
+        <tr>
+          <td>Title</td>
+          <td>Topic</td>
+          <td class="has-read-column">Has Read</td>
+          <td>Date Added</td>
+        </tr>
+      </thead>
+      <tbody class="article-list-body">
+        {% for article in articles %} {% include
+        'subtemplates/search_article.html' %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %} {% include 'subtemplates/back_button.html' %}
+</div>
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/view.js') }}"></script>
+<script src="{{ url_for('static', filename='js/goBack.js') }}"></script>
+{{ super() }} {{ moment.include_moment() }} {% endblock %} {% endblock %}

@@ -2,40 +2,32 @@
 page_content %}
 <div>
   <div
-    style="
-      width: 500px;
-      background-color: #f8f8f8;
-      border: #e7e7e7 2px solid;
-      margin: auto;
-    "
+    class="card"
   >
-    <div style="margin: 20px">
-      <h3 style="font-weight:600;">Enter Article</h5>
-      {{ wtf.quick_form(form) }}
-    </div>
+    <h3 class="card-title">Enter Article</h5>
+    {{ wtf.quick_form(form) }}
   </div>
-  <div style="margin-top: 20px;">
-    <h2 id="table-header">Articles</h2>
-    <table class="table">
-      <thead style="font-weight:bold; background-color: #f8f8f8;">
-        <tr>
-          <td>Title</td>
-          <td>Topic</td>
-          <td>Date Added</td>
-        </tr>
-      </thead>
-      <tbody class="article-list-body">
-        {% for article in articles %}
-          <tr class="article-row" id="{{ url_for( 'article', id=article.id ) }}">
-            <td>
-              <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
-            </td>
-            <td>{{ article.topic }}</td>
-            <td>{{ moment(article.timestamp).fromNow() }}</td>
+  {% if articles.count() > 0 %}
+    <div style="margin-top: 20px;">
+      <h2>Articles</h2>
+      <table class="table">
+        <thead class="table-header">
+          <tr>
+            <td>Title</td>
+            <td>Topic</td>
+            <td>Date Added</td>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody class="article-list-body">
+          {% for article in articles %}
+            {% include 'subtemplates/article.html' %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
   {% endblock %}
+  {% block scripts %}
+  <script src="{{ url_for('static', filename='js/view.js') }}"></script>
+  {{ super() }} {{ moment.include_moment() }} {% endblock %}
 </div>

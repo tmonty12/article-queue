@@ -1,4 +1,40 @@
+.card {
+  width: 500px;
+  background-color: #f8f8f8;
+  border: #e7e7e7 2px solid;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.table-header {
+  font-weight: bold;
+  background-color: #f8f8f8;
+}
+
 .article-row:hover {
   background-color: #f8f8f8;
   cursor: pointer;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-row div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-row div button {
+  margin-left: 10px;
+}
+
+.has-read-column {
+  text-align: center;
 }
