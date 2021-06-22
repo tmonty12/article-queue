@@ -4,6 +4,13 @@
     <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
   </td>
   <td>{{ article.topic }}</td>
+  <td class="has-read-column">
+    {% if article.has_read %}
+    <span class="material-icons"> check_box </span>
+    {% else %}
+    <span class="material-icons">check_box_outline_blank</span>
+    {% endif %}
+  </td>
   <td>{{ moment(article.timestamp).fromNow() }}</td>
 </tr>
 {% endblock %}

@@ -1,6 +1,6 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from app import db, login
 
 
@@ -33,6 +33,9 @@ class Article(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     has_read = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def on_queue(self):
+        return current_user.articles.filter_by(title=self.title, url=self.url).count() > 0
 
     def __repr__(self):
         return '<Article {}>'.format(self.title)

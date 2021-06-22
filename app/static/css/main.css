@@ -38,3 +38,13 @@
 .has-read-column {
   text-align: center;
 }
+
+.table-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-title form {
+  display: flex;
+  align-items: center;
+}

@@ -7,14 +7,18 @@ page_content %}
     <h3 class="card-title">Enter Article</h5>
     {{ wtf.quick_form(form) }}
   </div>
-  {% if articles.count() > 0 %}
+  {% if articles %}
     <div style="margin-top: 20px;">
-      <h2>Articles</h2>
+      <div class="table-title">
+        <h2>Articles</h2>
+        {% include 'subtemplates/filter_form.html' %}
+      </div>
       <table class="table">
         <thead class="table-header">
           <tr>
             <td>Title</td>
             <td>Topic</td>
+            <td class="has-read-column">Has Read</td>
             <td>Date Added</td>
           </tr>
         </thead>
@@ -25,6 +29,11 @@ page_content %}
         </tbody>
       </table>
     </div>
+  {% else %}
+  <div class="table-title">
+    <div></div>
+    {% include 'subtemplates/filter_form.html' %}
+  </div>
   {% endif %}
   {% endblock %}
   {% block scripts %}

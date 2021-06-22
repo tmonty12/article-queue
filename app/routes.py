@@ -10,14 +10,21 @@ from app.models import User, Article
 @login_required
 def index():
     form = ArticleForm()
+    filter = request.args.get('filter')
+    articles = current_user.articles.order_by(Article.timestamp.desc()).all()
+    if filter == 'read':
+      article_query = current_user.articles.order_by(Article.timestamp.desc()).filter_by(has_read=True)
+      articles = [ article for article in article_query ]
+    elif filter == 'unread':
+      article_query = current_user.articles.order_by(Article.timestamp.desc()).filter_by(has_read=False)
+      articles = [ article for article in article_query ]
     if form.validate_on_submit():
       article = Article(title=form.title.data, topic=form.topic.data, url=form.url.data, author=current_user)
       db.session.add(article)
       db.session.commit()
       flash('You added a new article')
       return redirect(url_for('index'))
-    articles = current_user.articles.order_by(Article.timestamp.desc()).filter_by(has_read=False)
-    return  render_template('index.html', form=form, articles=articles)
+    return  render_template('index.html', form=form, articles=articles, filter=filter)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -103,3 +110,7 @@ def search():
     article_query = Article.query.filter(Article.topic.like('%'+topic+'%'))
     articles = [ article for article in article_query ]
   return render_template('search.html', form=form, articles=articles)
+
+@app.errorhandler(404)
+def not_found_error(error):
+  return render_template('404.html'), 404

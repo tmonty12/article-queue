@@ -1,0 +1,20 @@
+{% block body %}
+<form method="GET">
+  <select class="form-control" name="filter">
+    {% if filter == 'read' %}
+    <option value="read" selected>read</option>
+    <option value="unread">unread</option>
+    <option value="clear">clear</option>
+    {% elif filter == 'clear' %}
+    <option value="read">read</option>
+    <option value="unread">unread</option>
+    <option value="clear" selected>clear</option>
+    {% else %}
+    <option value="read">read</option>
+    <option value="unread" selected>unread</option>
+    <option value="clear">clear</option>
+    {% endif %}
+  </select>
+  <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+{% endblock %}
