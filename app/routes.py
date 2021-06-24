@@ -1,19 +1,11 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
-from functools import wraps
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, ArticleForm, SearchForm
 from app.models import User, Article
+from app.utils import is_current_user
 
-def is_current_user(func):
-  @wraps(func)
-  def wrapper(*args, **kwargs):
-    author = Article.query.filter_by(id=kwargs['id']).first().author
-    if current_user == author:
-      return func(*args, **kwargs)
-    return redirect(url_for('index'))
-  return wrapper
   
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
