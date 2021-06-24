@@ -35,7 +35,12 @@ class Article(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def on_queue(self):
-        return current_user.articles.filter_by(title=self.title, url=self.url).count() > 0
+        return current_user.articles.filter_by(url=self.url).count() > 0
+    
+    def update(self, title, topic, url):
+        self.title = title
+        self.topic = topic
+        self.url = url
 
     def __repr__(self):
         return '<Article {}>'.format(self.title)

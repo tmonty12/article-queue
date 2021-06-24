@@ -17,7 +17,7 @@ class ArticleModelCase(unittest.TestCase):
         self.assertFalse(u.check_password('Go*Sox'))
         self.assertTrue(u.check_password('Go*Yanks'))
     
-    def test_creating_articles(self):
+    def test_create_articles(self):
         self.assertEqual(Article.query.first(), None)
 
         # Add two articles
@@ -29,7 +29,18 @@ class ArticleModelCase(unittest.TestCase):
         self.assertEqual(Article.query.all(), [a1, a2])
         self.assertEqual(Article.query.filter_by(topic='Bitcoin in El Salvador').first(), a2)
         self.assertEqual(Article.query.filter_by(title='What Yankees cant do at Trade Deadline').first(), a1)
+    
+    def test_edit_article():
+        pass
 
+    def test_delete_article():
+        pass
+
+    def test_read_article():
+        pass
+
+    def test_search_article():
+        pass
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
