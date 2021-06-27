@@ -34,8 +34,8 @@ class Article(db.Model):
     has_read = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def on_queue(self):
-        return current_user.articles.filter_by(url=self.url).count() > 0
+    def on_queue(self, user):
+        return user.articles.filter_by(url=self.url).count() > 0
     
     def update(self, title, topic, url):
         self.title = title
